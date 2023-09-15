@@ -1,0 +1,15 @@
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\bin\Debug\net6.0\SOLID.exe
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\bin\Debug\net6.0\SOLID.deps.json
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\bin\Debug\net6.0\SOLID.runtimeconfig.json
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\bin\Debug\net6.0\SOLID.dll
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\bin\Debug\net6.0\SOLID.pdb
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\obj\Debug\net6.0\SOLID.csproj.AssemblyReference.cache
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\obj\Debug\net6.0\SOLID.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\obj\Debug\net6.0\SOLID.AssemblyInfoInputs.cache
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\obj\Debug\net6.0\SOLID.AssemblyInfo.cs
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\obj\Debug\net6.0\SOLID.csproj.CoreCompileInputs.cache
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\obj\Debug\net6.0\SOLID.dll
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\obj\Debug\net6.0\refint\SOLID.dll
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\obj\Debug\net6.0\SOLID.pdb
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\obj\Debug\net6.0\SOLID.genruntimeconfig.cache
+C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Lessen\basics\SOLID\obj\Debug\net6.0\ref\SOLID.dll
