@@ -1,0 +1,15 @@
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/obj/Debug/net7.0/nummberCrunch.csproj.AssemblyReference.cache
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/obj/Debug/net7.0/nummberCrunch.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/obj/Debug/net7.0/nummberCrunch.AssemblyInfoInputs.cache
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/obj/Debug/net7.0/nummberCrunch.AssemblyInfo.cs
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/obj/Debug/net7.0/nummberCrunch.csproj.CoreCompileInputs.cache
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/bin/Debug/net7.0/nummberCrunch
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/bin/Debug/net7.0/nummberCrunch.deps.json
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/bin/Debug/net7.0/nummberCrunch.runtimeconfig.json
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/bin/Debug/net7.0/nummberCrunch.dll
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/bin/Debug/net7.0/nummberCrunch.pdb
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/obj/Debug/net7.0/nummberCrunch.dll
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/obj/Debug/net7.0/refint/nummberCrunch.dll
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/obj/Debug/net7.0/nummberCrunch.pdb
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/obj/Debug/net7.0/nummberCrunch.genruntimeconfig.cache
+/workspaces/FH_dotnet_exercises/crunchTheNumbers/nummberCrunch/obj/Debug/net7.0/ref/nummberCrunch.dll
