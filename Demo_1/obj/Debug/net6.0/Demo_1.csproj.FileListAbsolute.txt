@@ -1,0 +1,15 @@
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\bin\Debug\net6.0\Demo_1.exe
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\bin\Debug\net6.0\Demo_1.deps.json
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\bin\Debug\net6.0\Demo_1.runtimeconfig.json
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\bin\Debug\net6.0\Demo_1.dll
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\bin\Debug\net6.0\Demo_1.pdb
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\obj\Debug\net6.0\Demo_1.csproj.AssemblyReference.cache
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\obj\Debug\net6.0\Demo_1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\obj\Debug\net6.0\Demo_1.AssemblyInfoInputs.cache
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\obj\Debug\net6.0\Demo_1.AssemblyInfo.cs
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\obj\Debug\net6.0\Demo_1.csproj.CoreCompileInputs.cache
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\obj\Debug\net6.0\Demo_1.dll
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\obj\Debug\net6.0\refint\Demo_1.dll
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\obj\Debug\net6.0\Demo_1.pdb
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\obj\Debug\net6.0\Demo_1.genruntimeconfig.cache
+C:\Users\iveng\Source\Repos\FH_dotnet_exercises\Demo_1\obj\Debug\net6.0\ref\Demo_1.dll
