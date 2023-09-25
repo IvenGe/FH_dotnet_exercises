@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 class NumberCrunch
 {
@@ -15,10 +16,10 @@ class NumberCrunch
 
     static void Main(string[] args)
     {
-Console.WriteLine("╭━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╮");
-Console.WriteLine("     🌟 Welcome to the Number Cruncher 🌟      ");
-Console.WriteLine("         🚀 Let's Crunch Some Numbers! 🚀        ");
-Console.WriteLine("╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯");
+        Console.WriteLine("╭━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╮");
+        Console.WriteLine("     🌟 Welcome to the Number Cruncher 🌟      ");
+        Console.WriteLine("         🚀 Let's Crunch Some Numbers! 🚀        ");
+        Console.WriteLine("╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯");
 
         while (true)
         {
@@ -53,6 +54,10 @@ Console.WriteLine("╰━━━━━━━━━━━━━━━━━━━�
                 {
                     AssignVariable(input);
                 }
+                else if (input.StartsWith("[") && input.EndsWith("]"))
+                {
+                    CalculateWithVariable(input);
+                }
                 else
                 {
                     Calculate(input);
@@ -63,15 +68,18 @@ Console.WriteLine("╰━━━━━━━━━━━━━━━━━━━�
 
     static void ShowHelp()
     {
-Console.WriteLine("╭━━━━━━━━━━━━━━━━━━━━━━━━━━╮");
-Console.WriteLine("    🌟 Crunch the Numbers 🌟    ");
-Console.WriteLine("  🚀 Available Commands 🚀  ");
-Console.WriteLine("╰━━━━━━━━━━━━━━━━━━━━━━━━━━╯");
-Console.WriteLine("📜  /list    - List Variables");
-Console.WriteLine("🗑️  /clear   - Clear Variables");
-Console.WriteLine("❓  /help    - Show Help");
-Console.WriteLine("🛑  /stop    - Exit Program");
-Console.WriteLine("╰━━━━━━━━━━━━━━━━━━━━━━━━━━╯");
+static void ShowHelp()
+{
+    Console.WriteLine("You can enter simple calculations like '1+2' and let them calculate by pressing enter.");
+    Console.WriteLine("You can only use one operand at a time. If you want to use negative numbers, you need to store them in a variable first.");
+    Console.WriteLine("The operands you can use are +, -, *, /, and ^. Furthermore, you can assign a variable a value by using a syntax like 'hello=15'.");
+    Console.WriteLine("This would result in a variable called 'hello' with a value of 15.");
+    Console.WriteLine("To simply use the variable within a calculation, use [] brackets: '[hello]*5'.");
+    Console.WriteLine("The result of the last calculation will always be available under the variable 'ans'.");
+    Console.WriteLine("You can display the variables with the command '/list'. You can clear them by using '/clear'.");
+    Console.WriteLine("To stop the Crunch the Numbers calculation service, use '/stop'. To display this help text at any time use '/help'");
+}
+
     }
 
     static void ListVariables()
@@ -112,57 +120,84 @@ Console.WriteLine("╰━━━━━━━━━━━━━━━━━━━�
         }
     }
 
-    static void Calculate(string input)
+static void Calculate(string input)
+{
+    input = input.Replace(" ", "");
+    string[] parts = input.Split(new[] { '+', '-', '*', '/', '^' }, StringSplitOptions.RemoveEmptyEntries);
+
+    if (parts.Length != 2)
     {
-        string[] parts = input.Split(' ');
+        Console.WriteLine("Invalid input.");
+        return;
+    }
 
-        if (parts.Length != 3)
+    string operation = input[parts[0].Length].ToString();
+    double operand1, operand2;
+
+    if (double.TryParse(parts[0], out operand1))
+    {
+        if (double.TryParse(parts[1], out operand2))
         {
-            Console.WriteLine("Invalid input.");
-            return;
+            PerformCalculation(operand1, operand2, operation);
         }
-
-        string operation = parts[1];
-        double operand1, operand2;
-
-        if (double.TryParse(parts[0], out operand1))
+        else if (variables.ContainsKey(parts[1]))
         {
-            if (double.TryParse(parts[2], out operand2))
-            {
-                PerformCalculation(operand1, operand2, operation);
-            }
-            else if (variables.ContainsKey(parts[2]))
-            {
-                operand2 = variables[parts[2]];
-                PerformCalculation(operand1, operand2, operation);
-            }
-            else
-            {
-                Console.WriteLine("Invalid operand or variable.");
-            }
-        }
-        else if (variables.ContainsKey(parts[0]))
-        {
-            operand1 = variables[parts[0]];
-
-            if (double.TryParse(parts[2], out operand2))
-            {
-                PerformCalculation(operand1, operand2, operation);
-            }
-            else if (variables.ContainsKey(parts[2]))
-            {
-                operand2 = variables[parts[2]];
-                PerformCalculation(operand1, operand2, operation);
-            }
-            else
-            {
-                Console.WriteLine("Invalid operand or variable.");
-            }
+            operand2 = variables[parts[1]];
+            PerformCalculation(operand1, operand2, operation);
         }
         else
         {
             Console.WriteLine("Invalid operand or variable.");
         }
+    }
+    else if (variables.ContainsKey(parts[0]))
+    {
+        operand1 = variables[parts[0]];
+
+        if (double.TryParse(parts[1], out operand2))
+        {
+            PerformCalculation(operand1, operand2, operation);
+        }
+        else if (variables.ContainsKey(parts[1]))
+        {
+            operand2 = variables[parts[1]];
+            PerformCalculation(operand1, operand2, operation);
+        }
+        else
+        {
+            Console.WriteLine("Invalid operand or variable.");
+        }
+    }
+    else
+    {
+        Console.WriteLine("Invalid operand or variable.");
+    }
+}
+
+
+
+
+    static void CalculateWithVariable(string input)
+    {
+        string expression = input.Trim('[', ']');
+        double result = EvaluateExpression(expression);
+        Console.WriteLine($"Result: {result}");
+        variables["ans"] = result;
+    }
+
+    static double EvaluateExpression(string expression)
+    {
+        // Parse and evaluate a simple expression like 'variable*5'
+        string[] parts = expression.Split('*');
+        if (parts.Length == 2 && variables.ContainsKey(parts[0]))
+        {
+            if (double.TryParse(parts[1], out double multiplier))
+            {
+                double variableValue = variables[parts[0]];
+                return variableValue * multiplier;
+            }
+        }
+        return 0; 
     }
 
     static void PerformCalculation(double operand1, double operand2, string operation)
@@ -170,7 +205,8 @@ Console.WriteLine("╰━━━━━━━━━━━━━━━━━━━�
         if (operations.TryGetValue(operation, out var operationFunction))
         {
             double result = operationFunction(operand1, operand2);
-            Console.WriteLine($"{result}");
+            Console.WriteLine($"Result: {result}");
+            variables["ans"] = result;
         }
         else
         {
