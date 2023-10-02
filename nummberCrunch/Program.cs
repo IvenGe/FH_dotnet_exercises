@@ -11,23 +11,25 @@ namespace Crunch_the_numbers
         private static ICalculator _calculator = new Calculator();
         private static CommandHandler _commandHandler = new CommandHandler();
 
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Welcome to Crunch the numbers calculator service. Type /help for instructions");
-            while (true)
-            {
-                Console.Write(">");
-                string input = Console.ReadLine();
+static void Main(string[] args)
+{
+    Console.WriteLine("Welcome to Crunch the numbers calculator service. Type /help for instructions");
+    while (true)
+    {
+        Console.Write(">");
+        string input = Console.ReadLine();
 
-                if (input.StartsWith("/"))
-                {
-                    if (!_commandHandler.HandleCommand(input, _variableStore, ref _ans))
-                    {
-                        Console.WriteLine("Bye!");
-                        break;
-                    }
-                    continue;
-                }
+        if (input.StartsWith("/"))
+        {
+            var commandResult = _commandHandler.HandleCommand(input, _variableStore, _ans);
+            if (!commandResult.Handled)
+            {
+                Console.WriteLine("Bye!");
+                break;
+            }
+            _ans = commandResult.NewAnsValue;
+            continue;
+        }
 
                 // Variable assignment
                 if (input.Contains("="))

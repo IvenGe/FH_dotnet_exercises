@@ -1,24 +1,26 @@
     public class CommandHandler
     {
-        public bool HandleCommand(string command, VariableStore variableStore, ref double _ans)
+        public (bool Handled, double NewAnsValue) HandleCommand(string command, VariableStore variableStore, double currentAns)
+
+        
         {
             switch (command.ToLower())
             {
                 case "/help":
                     DisplayHelp();
-                    return true;
+                    return (true, currentAns);
                 case "/list":
-                    ListVariables(variableStore, _ans);
-                    return true;
+                    ListVariables(variableStore, currentAns);
+                    return (true, currentAns);
                 case "/clear":
                     variableStore.Clear();
                     Console.WriteLine("All variables have been cleared");
-                    return true;
+                    return (true, currentAns);
                 case "/stop":
-                    return false;
+                    return (true, currentAns);
                 default:
                     Console.WriteLine("Invalid command");
-                    return true;
+                    return (true, currentAns);
             }
         }
 
