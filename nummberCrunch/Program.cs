@@ -1,66 +1,44 @@
-﻿namespace Crunch_the_numbers
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Crunch_the_numbers
 {
     class Program
     {
-        static double ans = 0;
-        static Dictionary<string, double> variables = new Dictionary<string, double>();
+        private static double _ans = 0;
+        private static VariableStore _variableStore = new VariableStore();
+        private static ICalculator _calculator = new Calculator();
+        private static CommandHandler _commandHandler = new CommandHandler();
+
         static void Main(string[] args)
-        
         {
-             Console.WriteLine("Welcome to Crunch the numbers calculator service. Type /help for instructions");
+            Console.WriteLine("Welcome to Crunch the numbers calculator service. Type /help for instructions");
             while (true)
             {
-
                 Console.Write(">");
                 string input = Console.ReadLine();
 
-                if (input.ToLower() == "/help")
+                if (input.StartsWith("/"))
                 {
-                    Console.WriteLine("Here are some instructions to help you use the app:");
-                    Console.WriteLine("1. To perform a calculation, enter an expression in the format 'operand1 operator operand2', e.g., '5 + 3'.");
-                    Console.WriteLine("The operators you can use are +, -, *, / and ^");
-                    Console.WriteLine("You can only use one operand at a time. If you want to use negative numbers you need to store them in a variable first. (More of that further down)");
-                    Console.WriteLine("2. To use the result of the last calculation in a new calculation, use '[ans]' as an operand, e.g., '[ans] * 2'.");
-                    Console.WriteLine("3. To assign a value to a variable, enter an expression in the format 'variableName = value', e.g., 'x = 5'.");
-                    Console.WriteLine("4. To use a variable in a calculation, enclose the variable name in square brackets, e.g., '[x] + 3'.");
-                    Console.WriteLine("5. To list all saved variables and their values, enter the command '/list'.");
-                    Console.WriteLine("6. To clear all saved variables, enter the command '/clear'.");
-                    Console.WriteLine("7. To exit the app, enter the command '/stop'.");
-                    continue;
-                }
-
-                if (input.ToLower() == "/list")
-                {
-                    Console.WriteLine($"ans = {ans}");
-                    foreach (var variable in variables)
+                    if (!_commandHandler.HandleCommand(input, _variableStore, ref _ans))
                     {
-                        Console.WriteLine($"{variable.Key} = {variable.Value}");
+                        Console.WriteLine("Bye!");
+                        break;
                     }
                     continue;
                 }
 
-                if (input.ToLower() == "/clear")
-                {
-                    variables.Clear();
-                    Console.WriteLine("All variables have been cleared");
-                    continue;
-                }
-
-                if (input.ToLower() == "/stop")
-                {
-                    break;
-                }
-
+                // Variable assignment
                 if (input.Contains("="))
                 {
                     string[] tokens = input.Split('=');
                     if (tokens.Length == 2)
                     {
                         string variableName = tokens[0].Trim();
-                        double variableValue;
-                        if (double.TryParse(tokens[1].Trim(), out variableValue))
+                        if (double.TryParse(tokens[1].Trim(), out double variableValue))
                         {
-                            variables[variableName] = variableValue;
+                            _variableStore[variableName] = variableValue;
                             Console.WriteLine($"Variable '{variableName}' set to {variableValue}");
                             continue;
                         }
@@ -77,90 +55,66 @@
                     }
                 }
 
+                // Operations
                 char[] operators = { '+', '-', '*', '/', '^' };
-                char operatorSymbol = ' ';
-                int operatorIndex = -1;
+                char operatorSymbol = input.FirstOrDefault(op => operators.Contains(op));
 
-                foreach (char op in operators)
+                if (Array.IndexOf(operators, operatorSymbol) > -1)  // Checking if the operatorSymbol was found
                 {
-                    operatorIndex = input.IndexOf(op);
-                    if (operatorIndex != -1)
+                    string[] operands = input.Split(operatorSymbol);
+                    if (operands.Length == 2)
                     {
-                        operatorSymbol = op;
-                        break;
-                    }
-                }
+                        double operand1 = GetOperandValue(operands[0].Trim());
+                        double operand2 = GetOperandValue(operands[1].Trim());
 
-                if (operatorIndex != -1)
-                {
-                    string leftOperandStr = input.Substring(0, operatorIndex).Trim();
-                    string rightOperandStr = input.Substring(operatorIndex + 1).Trim();
+                        if (double.IsNaN(operand1) || double.IsNaN(operand2))
+                        {
+                            Console.WriteLine("Invalid operand");
+                            continue;
+                        }
 
-                    double operand1 = 0;
-                    double operand2 = 0;
-
-                    if (leftOperandStr.ToLower() == "[ans]" ||
-                    (leftOperandStr.StartsWith("[") &&
-                    leftOperandStr.EndsWith("]") && variables.TryGetValue(leftOperandStr.Substring
-                    (1, leftOperandStr.Length - 2), out operand1)))
-                    {
-                        operand1 = leftOperandStr.ToLower() == "[ans]" ? ans : operand1;
+                        _ans = PerformOperation(operand1, operand2, operatorSymbol);
+                        Console.WriteLine($"Result: {_ans}");
                     }
                     else
                     {
-                        if (!double.TryParse(leftOperandStr, out operand1))
-                        {
-                            Console.WriteLine("Invalid left operand");
-                            continue;
-                        }
+                        Console.WriteLine("Invalid input format");
                     }
-
-                    if (rightOperandStr.ToLower() == "[ans]" || 
-                    (rightOperandStr.StartsWith("[") && rightOperandStr.EndsWith("]") && 
-                    variables.TryGetValue(rightOperandStr.Substring
-                    (1, rightOperandStr.Length - 2), out operand2)))
-                    {
-                        operand2 = rightOperandStr.ToLower() == "[ans]" ? ans : operand2;
-                    }
-                    else
-                    {
-                        if (!double.TryParse(rightOperandStr, out operand2))
-                        {
-                            Console.WriteLine("Invalid right operand");
-                            continue;
-                        }
-                    }
-
-                    double result = 0;
-                    switch (operatorSymbol)
-                    {
-                        case '+':
-                            result = operand1 + operand2;
-                            break;
-                        case '-':
-                            result = operand1 - operand2;
-                            break;
-                        case '*':
-                            result = operand1 * operand2;
-                            break;
-                        case '/':
-                            result = operand1 / operand2;
-                            break;
-                        case '^':
-                            result = Math.Pow(operand1, operand2);
-                            break;
-                        default:
-                            Console.WriteLine("Invalid operator");
-                            return;
-                    }
-
-                    ans = result;
-                    Console.WriteLine("Result: " + result);
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input format");
+                    Console.WriteLine("Invalid input format or operator not recognized");
                 }
+            }
+        }
+
+        static double GetOperandValue(string operandStr)
+        {
+            if (operandStr.Equals("[ans]", StringComparison.OrdinalIgnoreCase))
+            {
+                return _ans;
+            }
+            else if (operandStr.StartsWith("[") && operandStr.EndsWith("]") && _variableStore.Contains(operandStr.Substring(1, operandStr.Length - 2)))
+            {
+                return _variableStore[operandStr.Substring(1, operandStr.Length - 2)];
+            }
+            else if (double.TryParse(operandStr, out double value))
+            {
+                return value;
+            }
+            return double.NaN;
+        }
+
+        static double PerformOperation(double operand1, double operand2, char operatorSymbol)
+        {
+            switch (operatorSymbol)
+            {
+                case '+': return _calculator.Add(operand1, operand2);
+                case '-': return _calculator.Subtract(operand1, operand2);
+                case '*': return _calculator.Multiply(operand1, operand2);
+                case '/': return _calculator.Divide(operand1, operand2);
+                case '^': return _calculator.Power(operand1, operand2);
+                default: return double.NaN;
             }
         }
     }
