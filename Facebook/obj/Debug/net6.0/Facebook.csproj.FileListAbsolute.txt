@@ -1,8 +1,0 @@
-C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Project\Facebook\obj\Debug\net6.0\Facebook.csproj.AssemblyReference.cache
-C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Project\Facebook\obj\Debug\net6.0\Facebook.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Project\Facebook\obj\Debug\net6.0\Facebook.AssemblyInfoInputs.cache
-C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Project\Facebook\obj\Debug\net6.0\Facebook.AssemblyInfo.cs
-C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Project\Facebook\obj\Debug\net6.0\Facebook.csproj.CoreCompileInputs.cache
-C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Project\Facebook\obj\Debug\net6.0\Facebook.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Project\Facebook\obj\Debug\net6.0\Facebook.RazorAssemblyInfo.cache
-C:\Users\iveng\OneDrive - Hogeschool West-Vlaanderen\Documenten\Howest\WerkColeges\AI\S5 2023 Voralberg\DotNet\Project\Facebook\obj\Debug\net6.0\Facebook.RazorAssemblyInfo.cs

@@ -1,30 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/Users/alexander/Desktop/FH_dotnet_exercises/nummberCrunch/nummberCrunch.csproj": {}
+    "/workspaces/FH_dotnet_exercises/nummberCrunch/nummberCrunch.csproj": {}
   },
   "projects": {
-    "/Users/alexander/Desktop/FH_dotnet_exercises/nummberCrunch/nummberCrunch.csproj": {
+    "/workspaces/FH_dotnet_exercises/nummberCrunch/nummberCrunch.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/alexander/Desktop/FH_dotnet_exercises/nummberCrunch/nummberCrunch.csproj",
+        "projectUniqueName": "/workspaces/FH_dotnet_exercises/nummberCrunch/nummberCrunch.csproj",
         "projectName": "nummberCrunch",
-        "projectPath": "/Users/alexander/Desktop/FH_dotnet_exercises/nummberCrunch/nummberCrunch.csproj",
-        "packagesPath": "/Users/alexander/.nuget/packages/",
-        "outputPath": "/Users/alexander/Desktop/FH_dotnet_exercises/nummberCrunch/obj/",
+        "projectPath": "/workspaces/FH_dotnet_exercises/nummberCrunch/nummberCrunch.csproj",
+        "packagesPath": "/home/codespace/.nuget/packages/",
+        "outputPath": "/workspaces/FH_dotnet_exercises/nummberCrunch/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/alexander/.nuget/NuGet/NuGet.Config"
+          "/home/codespace/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net7.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {}
           }
         },
@@ -35,8 +35,8 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "imports": [
             "net461",
             "net462",
@@ -53,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/dotnet/7.0.306/sdk/7.0.306/RuntimeIdentifierGraph.json"
         }
       }
     }

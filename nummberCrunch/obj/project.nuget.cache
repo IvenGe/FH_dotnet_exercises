@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9LLdoTv6Tc5vnQH2D3x1pHFQw6TQmpJJ8idOFkECPfDdGjbvCxYWzSyosrLRDsSROm5dkcSRMQ6OXq5Xm055JQ==",
+  "dgSpecHash": "ZNr6xRYhwkgPf6SUuhetIjORnhHAddZd7593GbMiKl/8UASFBLW2GD9McJ4mTV23AfmX712+HrBJCKtLZDGQrg==",
   "success": true,
-  "projectFilePath": "/Users/alexander/Desktop/FH_dotnet_exercises/nummberCrunch/nummberCrunch.csproj",
+  "projectFilePath": "/workspaces/FH_dotnet_exercises/nummberCrunch/nummberCrunch.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

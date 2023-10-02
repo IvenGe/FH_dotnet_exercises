@@ -11,7 +11,7 @@
             while (true)
             {
 
-               
+                Console.Write(">");
                 string input = Console.ReadLine();
 
                 if (input.ToLower() == "/help")
@@ -31,6 +31,7 @@
 
                 if (input.ToLower() == "/list")
                 {
+                    Console.WriteLine($"ans = {ans}");
                     foreach (var variable in variables)
                     {
                         Console.WriteLine($"{variable.Key} = {variable.Value}");
