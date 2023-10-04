@@ -17,7 +17,7 @@
                     Console.WriteLine("All variables have been cleared");
                     return (true, currentAns);
                 case "/stop":
-                    return (true, currentAns);
+                    return (false, currentAns);
                 default:
                     Console.WriteLine("Invalid command");
                     return (true, currentAns);
