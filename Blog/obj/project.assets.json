@@ -442,11 +442,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/alexander/Desktop/Blog/Blog.csproj",
+      "projectUniqueName": "/Users/alexander/Desktop/FH_dotnet_exercises/Blog/Blog.csproj",
       "projectName": "Blog",
-      "projectPath": "/Users/alexander/Desktop/Blog/Blog.csproj",
+      "projectPath": "/Users/alexander/Desktop/FH_dotnet_exercises/Blog/Blog.csproj",
       "packagesPath": "/Users/alexander/.nuget/packages/",
-      "outputPath": "/Users/alexander/Desktop/Blog/obj/",
+      "outputPath": "/Users/alexander/Desktop/FH_dotnet_exercises/Blog/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/alexander/.nuget/NuGet/NuGet.Config"

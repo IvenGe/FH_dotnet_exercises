@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Okpq3wwYGtFNVm3cpkL7hGxr4jFcuMuQWu6G9EgieBocvxLFrOZn4M4oEwPEUXOVEE6/2BYtBntjiljfaP0kGA==",
+  "dgSpecHash": "CWB/LhZIhyAYFqd10Zg7OW4NMR/EXtsz4tf11LiY68Z0eLmTubeQTUGo/oO4z5U5I4LJZGI/5Bpb79rJQwVYvA==",
   "success": true,
-  "projectFilePath": "/Users/alexander/Desktop/Blog/Blog.csproj",
+  "projectFilePath": "/Users/alexander/Desktop/FH_dotnet_exercises/Blog/Blog.csproj",
   "expectedPackageFiles": [
     "/Users/alexander/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "/Users/alexander/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
