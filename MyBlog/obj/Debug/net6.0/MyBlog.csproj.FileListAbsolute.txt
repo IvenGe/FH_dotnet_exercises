@@ -1,0 +1,7 @@
+/Users/alexander/Desktop/FH_dotnet_exercises/MyBlog/obj/Debug/net6.0/MyBlog.GeneratedMSBuildEditorConfig.editorconfig
+/Users/alexander/Desktop/FH_dotnet_exercises/MyBlog/obj/Debug/net6.0/MyBlog.AssemblyInfoInputs.cache
+/Users/alexander/Desktop/FH_dotnet_exercises/MyBlog/obj/Debug/net6.0/MyBlog.AssemblyInfo.cs
+/Users/alexander/Desktop/FH_dotnet_exercises/MyBlog/obj/Debug/net6.0/MyBlog.csproj.CoreCompileInputs.cache
+/Users/alexander/Desktop/FH_dotnet_exercises/MyBlog/obj/Debug/net6.0/MyBlog.MvcApplicationPartsAssemblyInfo.cache
+/Users/alexander/Desktop/FH_dotnet_exercises/MyBlog/obj/Debug/net6.0/MyBlog.RazorAssemblyInfo.cache
+/Users/alexander/Desktop/FH_dotnet_exercises/MyBlog/obj/Debug/net6.0/MyBlog.RazorAssemblyInfo.cs
