@@ -22,12 +22,12 @@ public class PostsDataStore
                     new CommentDto() {
                         Id = 1,
                         Name = "Frank",
-                        Description = "Ok"
+                        Text = "Ok"
                     },
                     new CommentDto() {
                         Id = 2,
                         Name = "Hank",
-                        Description = "Cool"
+                        Text = "Cool"
                     }
                 }
             },
@@ -41,12 +41,12 @@ public class PostsDataStore
                     new CommentDto() {
                         Id = 1,
                         Name = "Frank",
-                        Description = "Was it Dark brew?"
+                        Text = "Was it Dark brew?"
                     },
                     new CommentDto() {
                         Id = 2,
                         Name = "Hank",
-                        Description = "I Like Tea more"
+                        Text = "I Like Tea more"
                     }
                 }
             },
@@ -60,12 +60,12 @@ public class PostsDataStore
                     new CommentDto() {
                         Id = 1,
                         Name = "Frank",
-                        Description = "How strong was it?"
+                        Text = "How strong was it?"
                     },
                     new CommentDto() {
                         Id = 2,
                         Name = "Hank",
-                        Description = "I dont drink beer"
+                        Text = "I dont drink beer"
                     }
                 }
             }

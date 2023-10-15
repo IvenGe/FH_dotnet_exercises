@@ -1,8 +1,7 @@
 namespace Blog.API.Models;
 
-public class CommentDto
+public class CommentForCreationDto
 {
-    public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string? Text { get; set; }
 }

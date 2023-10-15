@@ -23,7 +23,7 @@ public class CommentsController : ControllerBase
         return Ok(post.Comments);
     }
 
-    [HttpGet("{commentid}")]
+    [HttpGet("{commentid}", Name = "GetComment")]
     public ActionResult<CommentDto> GetComment(
         int postId, int commentId)
     {
@@ -43,5 +43,37 @@ public class CommentsController : ControllerBase
         }
 
         return Ok(comment);
+    }
+
+    [HttpPost]
+    [Produces("application/json")]
+    public ActionResult<CommentDto> CreateComment(
+        int postId, CommentForCreationDto comment)
+    {
+        var post = PostsDataStore.Current.Posts
+            .FirstOrDefault(p => p.Id == postId);
+        if (post == null)
+        {
+            return NotFound();
+        }
+
+        // demo purposes - to be improved
+        var maxCommentId = PostsDataStore.Current.Posts
+            .SelectMany(p => p.Comments).Max(c => c.Id);
+
+        var finalComment = new CommentDto()
+        {
+            Id = ++maxCommentId,
+            Name = comment.Name,
+            Text = comment.Text
+        };
+
+        post.Comments.Add(finalComment);
+
+        return CreatedAtRoute("GetComment",
+            new {
+                postId, commentId = finalComment.Id
+                },
+            finalComment);
     }
 }
