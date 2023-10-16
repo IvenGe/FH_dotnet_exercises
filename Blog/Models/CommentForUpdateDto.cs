@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Blog.API.Models;
 
-public class CommentForCreationDto
+public class CommentForUpdateDto
 {
     [Required(ErrorMessage = "You should provide a name value.")]
     [MaxLength(50)]

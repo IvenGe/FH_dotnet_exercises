@@ -62,3 +62,7 @@
 /Users/alexander/Desktop/FH_dotnet_exercises/Blog/obj/Debug/net6.0/Blog.pdb
 /Users/alexander/Desktop/FH_dotnet_exercises/Blog/obj/Debug/net6.0/Blog.genruntimeconfig.cache
 /Users/alexander/Desktop/FH_dotnet_exercises/Blog/obj/Debug/net6.0/ref/Blog.dll
+/Users/alexander/Desktop/FH_dotnet_exercises/Blog/bin/Debug/net6.0/Microsoft.AspNetCore.JsonPatch.dll
+/Users/alexander/Desktop/FH_dotnet_exercises/Blog/bin/Debug/net6.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+/Users/alexander/Desktop/FH_dotnet_exercises/Blog/bin/Debug/net6.0/Newtonsoft.Json.dll
+/Users/alexander/Desktop/FH_dotnet_exercises/Blog/bin/Debug/net6.0/Newtonsoft.Json.Bson.dll

@@ -1,6 +1,8 @@
 using Blog.API.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace Blog.API.Controllers;
 
@@ -76,4 +78,96 @@ public class CommentsController : ControllerBase
                 },
             finalComment);
     }
+
+    [HttpPut("{commentId}")]
+    public ActionResult UpdateComment(int postId, int commentId, CommentForUpdateDto comment)
+    {
+        var post = PostsDataStore.Current.Posts
+            .FirstOrDefault(p => p.Id == postId);
+        if (post == null)
+        {
+            return NotFound();
+        }
+
+        // find comment
+        var commentFromStore = post.Comments
+            .FirstOrDefault(p => p.Id == commentId);
+        if (commentFromStore == null)
+        {
+            return NotFound();
+        }
+
+        commentFromStore.Name = comment.Name;
+        commentFromStore.Text = comment.Text;
+
+        return NoContent();
+    }
+    [HttpPatch("{commentId}")]
+    public ActionResult PartiallyUpdateComment(
+        int postId, int commentId,
+        JsonPatchDocument<CommentForUpdateDto> patchDocument)
+        {
+            var post = PostsDataStore.Current.Posts
+                .FirstOrDefault(p => p.Id == postId);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            // find comment
+            var commentFromStore = post.Comments
+                .FirstOrDefault(p => p.Id == commentId);
+            if (commentFromStore == null)
+            {
+                return NotFound();
+            }
+
+            var commentToPatch = 
+                new CommentForUpdateDto()
+                {
+                    Name = commentFromStore.Name,
+                    Text = commentFromStore.Text
+                };
+
+            patchDocument.ApplyTo(commentToPatch, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!TryValidateModel(commentToPatch))
+            {
+                return BadRequest(ModelState);
+            }
+
+            commentFromStore.Name = commentToPatch.Name;
+            commentFromStore.Text = commentToPatch.Text;
+
+            return NoContent();
+
+        }
+
+        [HttpDelete("{commentId}")]
+        public ActionResult DeleteComment(int postId, int commentId)
+        {
+            var post = PostsDataStore.Current.Posts
+                .FirstOrDefault(p => p.Id == postId);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            // find comment
+            var commentFromStore = post.Comments
+                .FirstOrDefault(p => p.Id == commentId);
+            if (commentFromStore == null)
+            {
+                return NotFound();
+            }
+
+            post.Comments.Remove(commentFromStore);
+
+            return NoContent();
+        }
 }
