@@ -1,4 +1,5 @@
 using System.Reflection;
+using Blog.API.Filters;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.StaticFiles;
@@ -18,7 +19,9 @@ container.Options.DefaultLifestyle = Lifestyle.Scoped;
 
 // Add services to the container.
 
-builder.Services.AddControllers().AddNewtonsoftJson()
+builder.Services.AddControllers(
+    options => options.Filters.Add(typeof(ExceptionFilter)))
+    .AddNewtonsoftJson()
 .AddXmlDataContractSerializerFormatters();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
