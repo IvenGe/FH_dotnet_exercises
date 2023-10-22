@@ -17,7 +17,7 @@ ICommand<CommentDto>
                 .SelectMany(x => x.Comments)
                 .Select(x => x.Id).Max() + 1;
 
-            var comment = new CommentDto
+            var comment = new CommentDto()
             {
                 Id = nextId,
                 Name = request.Name,

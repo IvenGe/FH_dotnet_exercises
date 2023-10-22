@@ -1,8 +1,10 @@
 using System.Reflection;
+using Blog.API.DbContexts;
 using Blog.API.Filters;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.EntityFrameworkCore;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 
@@ -24,6 +26,9 @@ builder.Services.AddControllers(
     .AddNewtonsoftJson()
 .AddXmlDataContractSerializerFormatters();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddDbContext<PostInfoContext>(
+    dbContextOptions => dbContextOptions.UseSqlite("Data Source=PostInfo.db")
+);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(
     options => options.CustomSchemaIds(x => x.FullName));
