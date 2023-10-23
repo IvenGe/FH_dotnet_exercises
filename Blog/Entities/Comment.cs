@@ -13,6 +13,9 @@ public class Comment
     [MaxLength(50)]
     public string Name { get; set; }
 
+    [MaxLength(200)]
+    public string? Text { get; set; }
+
     [ForeignKey("PostId")]
     public Post? Post { get; set; }
     public int PostId { get; set; }
