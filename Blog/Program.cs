@@ -26,10 +26,9 @@ builder.Services.AddControllers(
     .AddNewtonsoftJson()
 .AddXmlDataContractSerializerFormatters();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddDbContext<BlogContext>(
-    options => options.UseSqlite(
-        builder.Configuration["ConnectionStrings:BlogDbConnection"]));
-
+builder.Services.AddDbContext<PostInfoContext>(
+    dbContextOptions => dbContextOptions.UseSqlite("Data Source=PostInfo.db")
+);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(
     options => options.CustomSchemaIds(x => x.FullName));
