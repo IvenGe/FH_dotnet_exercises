@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore.Sqlite;
 
 namespace Blog.API.DbContexts;
 
-public class PostInfoContext : DbContext
+public class BlogContext : DbContext
 {
     public DbSet<Post> Posts { get; set; } = null!;
     public DbSet<Comment> Comments { get; set; } = null!;
 
-    public PostInfoContext(DbContextOptions<PostInfoContext> options)
+    public BlogContext(DbContextOptions<BlogContext> options)
         : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
