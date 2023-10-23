@@ -1,6 +1,7 @@
 using System.Net;
 using System.Runtime.ExceptionServices;
 using System.Text.Json;
+using Fusonic.Extensions.EntityFrameworkCore.Domain;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 
@@ -21,7 +22,7 @@ public class ExceptionFilter : IAsyncExceptionFilter
 
     public virtual Task OnExceptionAsync(ExceptionContext context)
     {
-        HandleException<InvalidOperationException>(
+        HandleException<EntityNotFoundException>(
             context,
             HttpStatusCode.NotFound,
             e => new { e.Message });

@@ -1,4 +1,6 @@
+using Blog.API.DbContexts;
 using Blog.API.Models;
+using Fusonic.Extensions.EntityFrameworkCore;
 using Fusonic.Extensions.MediatR;
 using MediatR;
 
@@ -10,10 +12,16 @@ IQuery<GetCommentsByPostId.Result>
     public record Result(IEnumerable<CommentDto> Items);
     public class Handler : IRequestHandler<GetCommentsByPostId, Result>
     {
-        public Task<Result> Handle(GetCommentsByPostId request, CancellationToken cancellationToken)
-            => Task.FromResult(
-                new Result(PostsDataStore.Current.Posts
-                    .Single(x => x.Id == request.PostId).Comments));
+        private readonly PostInfoContext context;
+
+        public Handler(PostInfoContext context) => this.context = context;
+        public async Task<Result> Handle(GetCommentsByPostId request, CancellationToken cancellationToken)
+            {
+                var post = await context.Posts
+                    .SingleRequiredAsync(x => x.Id == request.PostId, cancellationToken);
+                return new Result(post.Comments
+                        .Select(x => new CommentDto(x)));
+            }
     }
 
 }

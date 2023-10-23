@@ -1,3 +1,5 @@
+using Blog.API.DbContexts;
+using Fusonic.Extensions.EntityFrameworkCore;
 using Fusonic.Extensions.MediatR;
 using MediatR;
 
@@ -7,15 +9,17 @@ public record UpdateCommentName(int PostId, int CommentId, string Name) : IComma
 {
     public class Handler : IRequestHandler<UpdateCommentName>
     {
-        public Task<Unit> Handle(UpdateCommentName request, CancellationToken cancellationToken)
-        {
-            var comment = PostsDataStore.Current.Posts
-                .Single(x => x.Id == request.PostId)
-                .Comments
-                .Single(x => x.Id == request.CommentId);
+        private readonly PostInfoContext context;
 
+        public Handler(PostInfoContext context) => this.context = context;
+        public async Task<Unit> Handle(UpdateCommentName request, CancellationToken cancellationToken)
+        {
+            var comment = await context.Comments
+                .SingleRequiredAsync(x => x.PostId == request.PostId
+                                        && x.Id == request.CommentId, cancellationToken);
             comment.Name = request.Name;
-            return Task.FromResult<Unit>(default);
+            await context.SaveChangesAsync(cancellationToken);
+            return default;
         } 
     }
 }

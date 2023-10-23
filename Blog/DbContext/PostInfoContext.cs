@@ -16,6 +16,7 @@ public class PostInfoContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Post>().Navigation(x => x.Comments).AutoInclude();
         modelBuilder.Entity<Post>()
             .HasData(
             new Post("Jarkko")
