@@ -1,4 +1,6 @@
+using Blog.API.DbContexts;
 using Blog.API.Models;
+using Fusonic.Extensions.EntityFrameworkCore;
 using Fusonic.Extensions.MediatR;
 using MediatR;
 
@@ -9,22 +11,23 @@ ICommand<CommentDto>
 {
     public class Handler : IRequestHandler<AddComment, CommentDto>
     {
-        public Task<CommentDto> Handle(AddComment request, CancellationToken cancellationToken)
+        private readonly PostInfoContext context;
+        
+        public Handler(PostInfoContext context) => this.context = context; 
+
+        public async Task<CommentDto> Handle(AddComment request, CancellationToken cancellationToken)
         {
-            var post = PostsDataStore.Current.Posts.Single(x => x.Id == request.PostId);
+            var post = await context.Posts
+                .SingleRequiredAsync(x => x.Id == request.PostId, cancellationToken);
 
-            var nextId = PostsDataStore.Current.Posts
-                .SelectMany(x => x.Comments)
-                .Select(x => x.Id).Max() + 1;
-
-            var comment = new CommentDto()
+            var comment = new Entities.Comment(request.Name)
             {
-                Id = nextId,
-                Name = request.Name,
                 Text = request.Text
             };
+
             post.Comments.Add(comment);
-            return Task.FromResult(comment);
+            await context.SaveChangesAsync(cancellationToken);
+            return new CommentDto(comment);
         }
     }
 }

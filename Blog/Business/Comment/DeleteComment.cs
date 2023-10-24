@@ -1,3 +1,5 @@
+using Blog.API.DbContexts;
+using Fusonic.Extensions.EntityFrameworkCore;
 using Fusonic.Extensions.MediatR;
 using MediatR;
 
@@ -7,15 +9,19 @@ public record DeleteComment(int PostId, int CommentId) : ICommand
 {
     public class Handler : IRequestHandler<DeleteComment>
     {
-        public Task<Unit> Handle(DeleteComment request, CancellationToken cancellationToken)
-        {
-            var post = PostsDataStore.Current.Posts
-                .Single(x => x.Id == request.PostId);
-            var comment = post.Comments
-                .Single(x => x.Id == request.CommentId);
+        private readonly PostInfoContext context;
 
-            post.Comments.Remove(comment);
-            return Task.FromResult<Unit>(default);
+        public Handler(PostInfoContext context) => this.context = context;
+        public async Task<Unit> Handle(DeleteComment request, CancellationToken cancellationToken)
+        {
+            var comment = await context.Comments.SingleRequiredAsync(x =>
+            x.Id == request.CommentId
+            && x.PostId == request.PostId,
+            cancellationToken);
+
+            context.Comments.Remove(comment);
+            await context.SaveChangesAsync(cancellationToken);
+            return default;
         }
     }
 }
