@@ -13,8 +13,8 @@ public class PostsController : ControllerBase
 
     public PostsController(IMediator mediator) => this.mediator = mediator;
     [HttpGet]
-    public async Task<GetPosts.Result> GetPosts() 
-        => await mediator.Send(new GetPosts());
+    public async Task<GetPosts.Result> GetPosts(string? name, string? searchQuery) 
+        => await mediator.Send(new GetPosts(name, searchQuery));
 
     [HttpGet("{id}")]
     public async Task<PostDto> GetPostById(int id) 

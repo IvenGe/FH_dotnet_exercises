@@ -6,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Blog.API.Business.Post;
 
-public record GetPosts(string? Name = null) : IQuery<GetPosts.Result>
+public record GetPosts(
+    string? Name = null,
+    string? SearchQuery = null) : IQuery<GetPosts.Result>
 {
     public record Result(IEnumerable<PostDto> Items);
     public class Handler : IRequestHandler<GetPosts, Result>
@@ -19,7 +21,8 @@ public record GetPosts(string? Name = null) : IQuery<GetPosts.Result>
             var queryable = context.Posts.AsQueryable();
             if (!string.IsNullOrWhiteSpace(request.Name))
             {
-                queryable = queryable.Where(x => x.Name == request.Name);
+                queryable = queryable.Where(x => x.Name.Contains(request.SearchQuery)
+                || x.Description!.Contains(request.SearchQuery));
             }
 
             return new Result(await queryable.Select(x => new PostDto(x))
