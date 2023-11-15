@@ -1,8 +1,10 @@
 using System.Reflection;
 using Blog.API.DbContexts;
+using Blog.API.Entities;
 using Blog.API.Filters;
 using MediatR;
 using MediatR.Pipeline;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using SimpleInjector;
@@ -32,6 +34,17 @@ builder.Services.AddDbContext<PostInfoContext>(
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(
     options => options.CustomSchemaIds(x => x.FullName));
+
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+    options.User.RequireUniqueEmail = true;
+})
+    .AddEntityFrameworkStores<PostInfoContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddSimpleInjector(container, options =>
 {
@@ -77,6 +90,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints => endpoints.MapControllers());
 
