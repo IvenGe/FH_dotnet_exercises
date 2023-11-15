@@ -1,3 +1,3 @@
 # FH_dotnet_exercises
 
-How did you came here ?
+How did you come here ?
