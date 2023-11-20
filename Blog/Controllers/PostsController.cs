@@ -1,6 +1,7 @@
 using Blog.API.Business.Post;
 using Blog.API.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -14,6 +15,7 @@ public class PostsController : ControllerBase
 
     public PostsController(IMediator mediator) => this.mediator = mediator;
     [HttpGet]
+    [Authorize(Policy = "MustBeSuperUser")]
     public async Task<GetPosts.Result> GetPosts(string? name, string? searchQuery,
         int pageNumber = 1, int pageSize = 10)
         {
@@ -23,6 +25,7 @@ public class PostsController : ControllerBase
         }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<PostDto> GetPostById(int id) 
         => await mediator.Send(new GetPostById(id));
 }

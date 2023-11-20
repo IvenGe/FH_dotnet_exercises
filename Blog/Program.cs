@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Security.Claims;
 using System.Text;
 using Blog.API.DbContexts;
 using Blog.API.Entities;
@@ -95,6 +96,10 @@ builder.Services.AddSimpleInjector(container, options =>
 
     options.AutoCrossWireFrameworkComponents = true;
 });
+builder.Services.AddAuthorization(options =>
+    options.AddPolicy("MustBeSuperUser", policy =>
+        policy.RequireAuthenticatedUser()
+        .RequireClaim(ClaimTypes.Name, "SuperUser")));
 
 
 var app = builder.Build();
