@@ -16,6 +16,16 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> RegisterUser([FromBody] RegisterUser request)
     {
         var result = await mediator.Send(request);
-        return !result.Succeeded ? new BadRequestObjectResult(result.Errors) : Ok();
+        return !result.Succeeded ? new BadRequestObjectResult(result) : Ok();
+    }
+
+    [HttpPost("login")]
+    public async Task<AuthenticateUser.Result> Authenticate([FromBody]
+    AuthenticateUser request)
+    {
+        var result = await mediator.Send(request);
+        if (!result.Successful)
+            new UnauthorizedResult();
+        return result;
     }
 }
