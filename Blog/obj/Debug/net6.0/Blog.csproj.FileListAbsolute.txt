@@ -125,3 +125,10 @@
 /Users/alexander/Desktop/FH_dotnet_exercises/Blog/bin/Debug/net6.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 /Users/alexander/Desktop/FH_dotnet_exercises/Blog/bin/Debug/net6.0/Microsoft.Extensions.Identity.Core.dll
 /Users/alexander/Desktop/FH_dotnet_exercises/Blog/bin/Debug/net6.0/Microsoft.Extensions.Identity.Stores.dll
+/Users/alexander/Desktop/FH_dotnet_exercises/Blog/bin/Debug/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/alexander/Desktop/FH_dotnet_exercises/Blog/bin/Debug/net6.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/alexander/Desktop/FH_dotnet_exercises/Blog/bin/Debug/net6.0/Microsoft.IdentityModel.Logging.dll
+/Users/alexander/Desktop/FH_dotnet_exercises/Blog/bin/Debug/net6.0/Microsoft.IdentityModel.Protocols.dll
+/Users/alexander/Desktop/FH_dotnet_exercises/Blog/bin/Debug/net6.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/alexander/Desktop/FH_dotnet_exercises/Blog/bin/Debug/net6.0/Microsoft.IdentityModel.Tokens.dll
+/Users/alexander/Desktop/FH_dotnet_exercises/Blog/bin/Debug/net6.0/System.IdentityModel.Tokens.Jwt.dll

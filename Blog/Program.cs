@@ -1,12 +1,15 @@
 using System.Reflection;
+using System.Text;
 using Blog.API.DbContexts;
 using Blog.API.Entities;
 using Blog.API.Filters;
 using MediatR;
 using MediatR.Pipeline;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 
@@ -45,6 +48,26 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 })
     .AddEntityFrameworkStores<PostInfoContext>()
     .AddDefaultTokenProviders();
+
+var jwtConfig = builder.Configuration.GetSection("jwtConfig");
+var secret = jwtConfig["secret"];
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options => options.TokenValidationParameters
+        = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtConfig["validIssuer"],
+            ValidAudience = jwtConfig["validAudience"],
+            IssuerSigningKey = new
+SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
+        });
 
 builder.Services.AddSimpleInjector(container, options =>
 {
