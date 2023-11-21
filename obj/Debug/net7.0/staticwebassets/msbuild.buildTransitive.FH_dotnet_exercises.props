@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/FH_dotnet_exercises.props" />
+</Project>
