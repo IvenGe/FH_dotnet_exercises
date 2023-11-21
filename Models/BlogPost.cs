@@ -8,5 +8,5 @@ public class BlogPost
     public DateTime DateCreated { get; set; }
     public int UserId { get; set; }
     public User Author { get; set; }
-    public ICollection<Comment> Comments { get; set; }
+  //  public ICollection<Comment> Comments { get; set; }
 }

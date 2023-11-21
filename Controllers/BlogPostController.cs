@@ -23,18 +23,21 @@ public class BlogPostController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreatePost([FromBody] BlogPost post)
+    public async Task<ActionResult<BlogPostDto>> CreateBlogPost([FromBody] BlogPostForCreationDto blogPost1)
     {
-        if (post == null)
+        var createdBlogPost = await _blogPostService.CreatePostAsync(blogPost1);
+        if (createdBlogPost == null)
         {
-            return BadRequest("Blog post is null.");
+            return BadRequest();
         }
 
-        await _blogPostService.CreatePostAsync(post);
-        return CreatedAtAction(nameof(GetPostById), new { id = post.Id }, post);
+        return CreatedAtRoute("GetBlogPost", 
+        new { id = createdBlogPost.Id }, 
+        createdBlogPost);
+        // Ensure "GetBlogPost" matches the actual route name for retrieving a blog post
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name = "GetBlogPost")]
     public async Task<IActionResult> GetPostById(int id)
     {
         var post = await _blogPostService.GetPostByIdAsync(id);

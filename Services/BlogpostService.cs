@@ -27,9 +27,9 @@ namespace FH_dotnet_exercises.Services
 
         public async Task CreatePostAsync(BlogPost post)
         { 
- /*           if (post == null)
+           if (post == null)
                 throw new ArgumentNullException(nameof(post));
-*/
+
             post.DateCreated = DateTime.UtcNow; // Assuming BlogPost has a DateCreated property
             await _context.BlogPosts.AddAsync(post);
             await _context.SaveChangesAsync();
@@ -53,5 +53,6 @@ namespace FH_dotnet_exercises.Services
                 await _context.SaveChangesAsync();
             }
         }
+       
     }
 }
