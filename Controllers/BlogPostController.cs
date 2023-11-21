@@ -23,17 +23,20 @@ public class BlogPostController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<BlogPostDto>> CreateBlogPost([FromBody] BlogPostForCreationDto blogPost1)
+    public async Task<ActionResult<BlogPostDto>> CreateBlogPost([FromBody] BlogPostForCreationDto blogPostDto)
     {
-        var createdBlogPost = await _blogPostService.CreatePostAsync(blogPost1);
-        if (createdBlogPost == null)
+        // Convert BlogPostForCreationDto to BlogPost entity
+        var blogPost = new BlogPost
         {
-            return BadRequest();
-        }
+            Title = blogPostDto.Title,
+            Content = "test",
+            UserId = 32
+            // Set other properties if necessary
+        };
 
-        return CreatedAtRoute("GetBlogPost", 
-        new { id = createdBlogPost.Id }, 
-        createdBlogPost);
+         await _blogPostService.CreatePostAsync(blogPost);
+         return Ok();
+        
         // Ensure "GetBlogPost" matches the actual route name for retrieving a blog post
     }
 
