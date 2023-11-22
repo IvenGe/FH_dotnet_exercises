@@ -20,11 +20,18 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Authenticate([FromBody] AuthenticateUser request)
+    public async Task<AuthenticateUser.Result> Authenticate([FromBody] AuthenticateUser request)
     {
         var result = await mediator.Send(request);
         if (!result.Successful)
-            return Unauthorized();
-        return Ok(result);
+            new Unauthorized();
+        return result;
+    }
+}
+
+internal class Unauthorized
+{
+    public Unauthorized()
+    {
     }
 }
