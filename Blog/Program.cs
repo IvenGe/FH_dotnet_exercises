@@ -28,6 +28,7 @@ container.Options.DefaultLifestyle = Lifestyle.Scoped;
 
 
 // Add services to the container.
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllers(
     options => options.Filters.Add(typeof(ExceptionFilter)))

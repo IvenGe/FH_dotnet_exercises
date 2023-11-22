@@ -28,4 +28,15 @@ public class PostsController : ControllerBase
     [Authorize]
     public async Task<PostDto> GetPostById(int id) 
         => await mediator.Send(new GetPostById(id));
+    
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> CreatePost([FromBody] CreatePostDto createPostDto)
+    {
+
+        var command = new CreatePost(createPostDto);
+        var result = await mediator.Send(command);
+
+        return CreatedAtAction(nameof(GetPostById), new { id = result.Id }, result);
+    }
 }

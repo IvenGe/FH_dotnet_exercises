@@ -26,17 +26,17 @@ public class PostInfoContext : IdentityDbContext<User>
             new Post("Jarkko")
             {
                 Id = 1,
-                Description = "this is first post using db"
+                Title = "this is first post using db"
             },
             new Post("erkki")
             {
                 Id = 2,
-                Description = "Yyeyyeyeyeeyeee"
+                Title = "Yyeyyeyeyeeyeee"
             },
             new Post("Kari")
             {
                 Id = 3,
-                Description = "heihei"
+                Title = "heihei"
             });
 
         modelBuilder.Entity<Comment>()

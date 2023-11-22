@@ -16,7 +16,7 @@ public class PostsDataStore
             {
                 Id = 1,
                 Name = "Today",
-                Description = "Today was a good day",
+                Title = "Today was a good day",
                 Comments = new List<CommentDto>()
                 {
                     new CommentDto() {
@@ -35,7 +35,7 @@ public class PostsDataStore
             {
                 Id = 2,
                 Name = "Coffee",
-                Description = "Coffee is so good",
+                Title = "Coffee is so good",
                 Comments = new List<CommentDto>()
                 {
                     new CommentDto() {
@@ -54,7 +54,7 @@ public class PostsDataStore
             {
                 Id = 3,
                 Name = "Beer",
-                Description = "Beer is good",
+                Title = "Beer is good",
                 Comments = new List<CommentDto>()
                 {
                     new CommentDto() {
