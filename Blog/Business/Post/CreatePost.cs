@@ -5,7 +5,7 @@ using Fusonic.Extensions.MediatR;
 using System.Security.Claims;
 
 namespace Blog.API.Business.Post;
-
+// Create a new post
 public record CreatePost(CreatePostDto CreatePostDto) : 
 ICommand<PostDto>
 {

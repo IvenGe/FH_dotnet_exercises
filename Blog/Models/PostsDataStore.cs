@@ -21,13 +21,13 @@ public class PostsDataStore
                 {
                     new CommentDto() {
                         Id = 1,
-                        Name = "Frank",
-                        Text = "Ok"
+                        Title = "Frank",
+                        Content = "Ok"
                     },
                     new CommentDto() {
                         Id = 2,
-                        Name = "Hank",
-                        Text = "Cool"
+                        Title = "Hank",
+                        Content = "Cool"
                     }
                 }
             },
@@ -40,13 +40,13 @@ public class PostsDataStore
                 {
                     new CommentDto() {
                         Id = 1,
-                        Name = "Frank",
-                        Text = "Was it Dark brew?"
+                        Title = "Frank",
+                        Content = "Was it Dark brew?"
                     },
                     new CommentDto() {
                         Id = 2,
-                        Name = "Hank",
-                        Text = "I Like Tea more"
+                        Title = "Hank",
+                        Content = "I Like Tea more"
                     }
                 }
             },
@@ -59,13 +59,13 @@ public class PostsDataStore
                 {
                     new CommentDto() {
                         Id = 1,
-                        Name = "Frank",
-                        Text = "How strong was it?"
+                        Title = "Frank",
+                        Content = "How strong was it?"
                     },
                     new CommentDto() {
                         Id = 2,
-                        Name = "Hank",
-                        Text = "I dont drink beer"
+                        Title = "Hank",
+                        Content = "I dont drink beer"
                     }
                 }
             }

@@ -16,6 +16,7 @@ public class PostsController : ControllerBase
     public PostsController(IMediator mediator) => this.mediator = mediator;
     [HttpGet]
     [Authorize(Policy = "MustBeSuperUser")]
+    //Controller to get posts
     public async Task<GetPosts.Result> GetPosts(string? name, string? searchQuery,
         int pageNumber = 1, int pageSize = 10)
         {
@@ -26,11 +27,13 @@ public class PostsController : ControllerBase
 
     [HttpGet("{id}")]
     [Authorize]
+    //Controller to get post by id
     public async Task<PostDto> GetPostById(int id) 
         => await mediator.Send(new GetPostById(id));
     
     [HttpPost]
     [Authorize]
+    //Controller for creating a new post
     public async Task<IActionResult> CreatePost([FromBody] CreatePostDto createPostDto)
     {
 

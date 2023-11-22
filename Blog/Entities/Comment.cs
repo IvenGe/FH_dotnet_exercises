@@ -9,19 +9,24 @@ public class Comment
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
+    public string FullName { get; set; }
+
     [Required]
     [MaxLength(50)]
-    public string Name { get; set; }
+    public string Title { get; set; }
 
     [MaxLength(200)]
-    public string? Text { get; set; }
+    public string? Content { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+
+
 
     [ForeignKey("PostId")]
     public Post? Post { get; set; }
     public int PostId { get; set; }
-    public Comment(string name)
+    public Comment()
     {
-        Name = name;
     }
 
 }

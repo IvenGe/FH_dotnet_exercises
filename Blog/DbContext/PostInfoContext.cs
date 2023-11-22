@@ -41,29 +41,41 @@ public class PostInfoContext : IdentityDbContext<User>
 
         modelBuilder.Entity<Comment>()
          .HasData(
-            new Comment("Mike")
+            new Comment()
             {
                 Id = 1,
+                FullName = "Jarkko",
                 PostId = 1,
-                Text = "Database cooooool"
+                Title = "Database",
+                Content = "Database cooooool",
+                Timestamp = DateTime.UtcNow
             },
-            new Comment("Tim")
+            new Comment()
             {
                 Id = 2,
+                FullName = "erkki",
                 PostId = 1,
-                Text = "okok"
+                Title = "ok",   
+                Content = "okok",
+                Timestamp = DateTime.UtcNow
             },
-            new Comment("Al")
+            new Comment()
             {
                 Id = 3,
+                FullName = "Kari",
                 PostId = 2,
-                Text = "yee"
+                Title = "yearfeaee",
+                Content = "yee",
+                Timestamp = DateTime.UtcNow
             },
-            new Comment("user")
+            new Comment()
             {
                 Id = 4,
+                FullName = "Jarkko",
                 PostId = 3,
-                Text = "sup"
+                Title = "hihsadads",
+                Content = "sup",
+                Timestamp = DateTime.UtcNow
             });
         
     }

@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Blog.API.Business.Comment;
 using Blog.API.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.API.Controllers;
@@ -24,44 +25,36 @@ public class CommentsController : ControllerBase
         int postId, int commentId)
         => mediator.Send(new GetComment(postId, commentId));
     
-    public class CommentCreationModel
-    {
-        [Required(ErrorMessage = "You should provide a name value")]
-        [MaxLength(50)]
-        public string Name { get; set; } = string.Empty;
-
-        [MaxLength(200)]
-        public string? Text { get; set; }
-    }
 
 [HttpPost]
-public async Task<ActionResult<CommentDto>> CreateCommentAsync(
+[Authorize]
+public async Task<ActionResult<CommentDto>> CreateComment(
     [FromRoute] int postId,
-    [FromBody] CommentCreationModel body)
+    [FromBody] CommentForCreationDto commentForCreationDto)
 {
-    var comment = await mediator.Send(
-        new AddComment(body.Name, body.Text, postId));
+    var commentDto = await mediator.Send(
+        new AddComment(commentForCreationDto, postId));
     return CreatedAtRoute("GetComment",
         new
         {
             postId,
-            commentId = comment.Id 
-        }, comment);
+            commentId = commentDto.Id 
+        }, commentDto);
 }
 
-public record UpdateCommentNameModel([MaxLength(50)] string Name);
-[HttpPost("{commentId}/UpdateName")]
-public Task<Unit> UpdateCommentName(
+public record UpdateCommentTitleModel([MaxLength(50)] string Title);
+[HttpPost("{commentId}/UpdateTitle")]
+public Task<Unit> UpdateCommentTitle(
     int postId, int commentId,
-    [FromBody] UpdateCommentNameModel body)
-    => mediator.Send(new UpdateCommentName(postId, commentId, body.Name));
+    [FromBody] UpdateCommentTitleModel body)
+    => mediator.Send(new UpdateCommentTitle(postId, commentId, body.Title));
 
-public record UpdateCommentTextModel([MaxLength(200)] string? Text);
+public record UpdateCommentContentModel([MaxLength(200)] string? Content);
 [HttpPost("{commentId}/UpdateText")]
-public Task<Unit> UpdateCommentText(
+public Task<Unit> UpdateCommentContent(
     int postId, int commentId,
-    [FromBody] UpdateCommentTextModel body)
-    => mediator.Send(new UpdateCommentText(postId, commentId, body.Text));
+    [FromBody] UpdateCommentContentModel body)
+    => mediator.Send(new UpdateCommentText(postId, commentId, body.Content));
 
 [HttpDelete("{commentId}")]
 public Task<Unit> DeleteComment(int postId, int commentId)
