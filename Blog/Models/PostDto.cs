@@ -4,18 +4,25 @@ namespace Blog.API.Models;
 
 public class PostDto
 {
-    public PostDto() {}
+    public PostDto() {
+
+
+    }
     public PostDto(Post post)
     {
         Id = post.Id;
         Name = post.Name;
-        Description = post.Description;
+        Title = post.Title;
+        Content = post.Content;
         Comments = post.Comments
             .Select(comment => new CommentDto(comment)).ToList();
+        DateCreated = (DateTime)post.DateCreated;
     }
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
-    public string? Description { get; set; }
+    public string? Title { get; set; }
+    public string? Content { get; set; }
+    public DateTime DateCreated { get; set; }
     public int NumberOfComments
         => Comments.Count;
     public ICollection<CommentDto> Comments { get; set; }

@@ -78,13 +78,19 @@ namespace Blog.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(200)
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Date")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -95,20 +101,20 @@ namespace Blog.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "this is first post using db",
-                            Name = "Jarkko"
+                            Name = "Jarkko",
+                            Title = "this is first post using db"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Yyeyyeyeyeeyeee",
-                            Name = "erkki"
+                            Name = "erkki",
+                            Title = "Yyeyyeyeyeeyeee"
                         },
                         new
                         {
                             Id = 3,
-                            Description = "heihei",
-                            Name = "Kari"
+                            Name = "Kari",
+                            Title = "heihei"
                         });
                 });
 

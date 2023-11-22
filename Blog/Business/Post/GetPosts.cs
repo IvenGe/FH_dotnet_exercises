@@ -29,7 +29,7 @@ public record GetPosts(
             if (!string.IsNullOrWhiteSpace(request.SearchQuery))
             {
                 queryable = queryable.Where(x => x.Name.Contains(request.SearchQuery)
-                                                 || x.Description!.Contains(request.SearchQuery));
+                                                 || x.Title!.Contains(request.SearchQuery));
             }
             var totalItemsCount = await queryable.CountAsync(cancellationToken);
 

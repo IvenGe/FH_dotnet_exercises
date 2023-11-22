@@ -1,4 +1,6 @@
 using Blog.API.Models;
+using System;
+using System.Collections.Generic;
 
 namespace Blog.API;
 
@@ -8,7 +10,6 @@ public class PostsDataStore
     public static PostsDataStore Current { get; } = new PostsDataStore();
 
     public PostsDataStore()
-    //dummy data
     {
         Posts = new List<PostDto>()
         {
@@ -16,57 +17,36 @@ public class PostsDataStore
             {
                 Id = 1,
                 Name = "Today",
-                Description = "Today was a good day",
+                Title = "Today was a good day",
+                DateCreated = DateTime.Now,
                 Comments = new List<CommentDto>()
                 {
-                    new CommentDto() {
-                        Id = 1,
-                        Name = "Frank",
-                        Text = "Ok"
-                    },
-                    new CommentDto() {
-                        Id = 2,
-                        Name = "Hank",
-                        Text = "Cool"
-                    }
+                    new CommentDto() { Id = 1, Name = "Frank", Text = "Ok" },
+                    new CommentDto() { Id = 2, Name = "Hank", Text = "Cool" }
                 }
             },
             new PostDto()
             {
                 Id = 2,
                 Name = "Coffee",
-                Description = "Coffee is so good",
+                Title = "Coffee is so good",
+                DateCreated = DateTime.Now,
                 Comments = new List<CommentDto>()
                 {
-                    new CommentDto() {
-                        Id = 1,
-                        Name = "Frank",
-                        Text = "Was it Dark brew?"
-                    },
-                    new CommentDto() {
-                        Id = 2,
-                        Name = "Hank",
-                        Text = "I Like Tea more"
-                    }
+                    new CommentDto() { Id = 1, Name = "Frank", Text = "Was it Dark brew?" },
+                    new CommentDto() { Id = 2, Name = "Hank", Text = "I Like Tea more" }
                 }
             },
             new PostDto()
             {
                 Id = 3,
                 Name = "Beer",
-                Description = "Beer is good",
+                Title = "Beer is good",
+                DateCreated = DateTime.Now,
                 Comments = new List<CommentDto>()
                 {
-                    new CommentDto() {
-                        Id = 1,
-                        Name = "Frank",
-                        Text = "How strong was it?"
-                    },
-                    new CommentDto() {
-                        Id = 2,
-                        Name = "Hank",
-                        Text = "I dont drink beer"
-                    }
+                    new CommentDto() { Id = 1, Name = "Frank", Text = "How strong was it?" },
+                    new CommentDto() { Id = 2, Name = "Hank", Text = "I dont drink beer" }
                 }
             }
         };

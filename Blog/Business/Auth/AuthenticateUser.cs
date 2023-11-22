@@ -59,7 +59,9 @@ ICommand<AuthenticateUser.Result>
     {
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, user.UserName)
+            new Claim(ClaimTypes.Name, user.UserName),
+            new Claim(ClaimTypes.GivenName, user.FirstName ?? ""),
+            new Claim(ClaimTypes.Surname, user.LastName ?? ""),
         };
 
         var roles = await userManager.GetRolesAsync(user);

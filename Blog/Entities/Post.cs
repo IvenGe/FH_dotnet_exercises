@@ -1,5 +1,7 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.VisualBasic;
 
 namespace Blog.API.Entities;
 
@@ -14,7 +16,12 @@ public class Post
     public string Name { get; set; }
 
     [MaxLength(200)]
-    public string? Description { get; set;}
+    public string? Title { get; set;}
+
+    public string? Content { get; set; }
+    
+    public DateTime? DateCreated {get;set;}
+    
 
     public ICollection<Comment> Comments { get; set; }
         = new List<Comment>();
@@ -22,6 +29,7 @@ public class Post
     public Post(string name)
     {
         Name = name;
+        DateCreated = DateTime.UtcNow;
     }
 
 }
