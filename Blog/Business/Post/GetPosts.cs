@@ -12,7 +12,7 @@ public record GetPosts(
     int PageNumber = 1,
     int PageSize = 10) : IQuery<GetPosts.Result>
 {
-    public record Result(IEnumerable<PostDto> Items, PaginationMetadata PaginationMetadata);
+    public record Result(IEnumerable<PostDto> Posts, PaginationMetadata PaginationMetadata);
     public class Handler : IRequestHandler<GetPosts, Result>
         {
         private readonly PostInfoContext context;
