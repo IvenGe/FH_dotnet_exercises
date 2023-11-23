@@ -41,10 +41,9 @@ public class PostsController : ControllerBase
     [HttpPost]
     [Authorize]
     //Controller for creating a new post
-    public async Task<IActionResult> CreatePost([FromBody] CreatePostDto createPostDto)
+    public async Task<IActionResult> CreatePost(
+        [FromBody] CreatePostDto createPostDto)
     {
-        var AuthorId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-
         var command = new CreatePost(createPostDto);
         var result = await mediator.Send(command);
 

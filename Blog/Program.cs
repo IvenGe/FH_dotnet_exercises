@@ -30,6 +30,14 @@ container.Options.DefaultLifestyle = Lifestyle.Scoped;
 // Add services to the container.
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+    )
+    .AddJsonOptions(options =>
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve
+    );
+
 
 builder.Services.AddControllers(
     options => options.Filters.Add(typeof(ExceptionFilter)))

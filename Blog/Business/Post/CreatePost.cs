@@ -41,6 +41,10 @@ ICommand<PostDto>
 
                 throw new InvalidOperationException("AuthorId cannot be null");
             }
+            if (string.IsNullOrEmpty(post.AuthorName))
+            {
+                throw new InvalidOperationException("AuthorName cannot be null");
+            }
 
             context.Posts.Add(post);
             

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+/*using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 
 namespace Blog.API.Controllers;
@@ -8,7 +8,7 @@ namespace Blog.API.Controllers;
 public class FilesController : ControllerBase
 {
 
-    private readonly FileExtensionContentTypeProvider
+     private readonly FileExtensionContentTypeProvider
     _fileExtensionContentTypeProvider;
 
     public FilesController(FileExtensionContentTypeProvider fileExtensionContentTypeProvider)
@@ -36,3 +36,4 @@ public class FilesController : ControllerBase
         return File(bytes, contentType, Path.GetFileName(pathToFile));
     }
 }
+*/
