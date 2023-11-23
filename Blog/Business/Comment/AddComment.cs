@@ -26,13 +26,14 @@ ICommand<CommentDto>
             var userClaims = _httpContextAccessor.HttpContext.User.Claims;
             var firstName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value;
             var lastName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Surname)?.Value;
+            var userId = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
             var fullName = $"{firstName} {lastName}";
             var post = await context.Posts
                 .SingleRequiredAsync(x => x.Id == request.PostId, cancellationToken);
 
             var comment = new Entities.Comment()
             {
-                FullName = fullName,
+                Author = fullName.ToString(),
                 Title = request.CommentForCreationDto.Title,
                 Content = request.CommentForCreationDto.Content,
                 PostId = request.PostId

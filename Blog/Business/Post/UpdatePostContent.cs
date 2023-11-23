@@ -5,9 +5,9 @@ using MediatR;
 
 namespace Blog.API.Business.Post;
 
-public record UpdatePostTitle(int PostId, string Title) : ICommand
+public record UpdatePostContent(int PostId, string? Content) : ICommand
 {
-    public class Handler : IRequestHandler<UpdatePostTitle>
+    public class Handler : IRequestHandler<UpdatePostContent>
     {
         private readonly PostInfoContext context;
         private readonly IHttpContextAccessor httpContextAccessor;
@@ -17,16 +17,15 @@ public record UpdatePostTitle(int PostId, string Title) : ICommand
             this.context = context;
             this.httpContextAccessor = httpContextAccessor;
         }
-        public async Task<Unit> Handle(UpdatePostTitle request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdatePostContent request, CancellationToken cancellationToken)
         {
             var post = await context.Posts
                 .SingleRequiredAsync(x => x.Id == request.PostId, cancellationToken);
-
             if (post == null || post.AuthorId != httpContextAccessor.HttpContext.User.Identity.Name)
             {
                 throw new UnauthorizedAccessException();
             }
-            post.Title = request.Title;
+            post.Content = request.Content;
             await context.SaveChangesAsync(cancellationToken);
             return default;
         } 

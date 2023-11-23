@@ -3,6 +3,7 @@ using System;
 using Blog.API.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blog.Migrations
 {
     [DbContext(typeof(PostInfoContext))]
-    partial class PostInfoContextModelSnapshot : ModelSnapshot
+    [Migration("20231123173421_AddAuthorfktoPostsagain2")]
+    partial class AddAuthorfktoPostsagain2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.25");
@@ -25,9 +27,6 @@ namespace Blog.Migrations
 
                     b.Property<string>("AuthorId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AuthorName")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
@@ -63,9 +62,6 @@ namespace Blog.Migrations
 
                     b.Property<string>("AuthorId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AuthorName")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")

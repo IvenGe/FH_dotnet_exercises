@@ -26,14 +26,25 @@ ICommand<PostDto>
             var userClaims = _httpContextAccessor.HttpContext.User.Claims;
             var firstName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value;
             var lastName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Surname)?.Value; 
-            var fullName = $"{firstName} {lastName}";
-            var post = new Entities.Post(fullName)
+            var userId = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            var authorName = $"{firstName} {lastName}";
+            var post = new Entities.Post()
             {
+                AuthorName = authorName.ToString(),
                 Title = request.CreatePostDto.Title,
-                Content = request.CreatePostDto.Content
+                Content = request.CreatePostDto.Content,
+                AuthorId = userId
             };
 
+            Console.WriteLine(userId);
+            if (string.IsNullOrEmpty(userId))
+            {
+
+                throw new InvalidOperationException("AuthorId cannot be null");
+            }
+
             context.Posts.Add(post);
+            
             await context.SaveChangesAsync(cancellationToken);
             return new PostDto(post);
         }

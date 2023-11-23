@@ -3,6 +3,7 @@ using System;
 using Blog.API.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blog.Migrations
 {
     [DbContext(typeof(PostInfoContext))]
-    partial class PostInfoContextModelSnapshot : ModelSnapshot
+    [Migration("20231123170638_LinksUserToPost")]
+    partial class LinksUserToPost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.25");
@@ -25,9 +27,6 @@ namespace Blog.Migrations
 
                     b.Property<string>("AuthorId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AuthorName")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
@@ -65,11 +64,11 @@ namespace Blog.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AuthorName")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Content")
                         .HasColumnType("TEXT");
+
+                    b.Property<int?>("PostId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -79,6 +78,8 @@ namespace Blog.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
+
+                    b.HasIndex("PostId");
 
                     b.ToTable("Posts");
                 });
@@ -303,10 +304,14 @@ namespace Blog.Migrations
             modelBuilder.Entity("Blog.API.Entities.Post", b =>
                 {
                     b.HasOne("Blog.API.Entities.User", "Author")
-                        .WithMany("Posts")
+                        .WithMany()
                         .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Blog.API.Entities.Post", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("PostId");
 
                     b.Navigation("Author");
                 });
@@ -365,13 +370,13 @@ namespace Blog.Migrations
             modelBuilder.Entity("Blog.API.Entities.Post", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("Blog.API.Entities.User", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

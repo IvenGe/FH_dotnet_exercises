@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Blog.API.Business.Post;
 
 public record GetPosts(
-    string? Name = null,
+    string? Title = null,
     string? SearchQuery = null,
     int PageNumber = 1,
     int PageSize = 10) : IQuery<GetPosts.Result>
@@ -21,14 +21,14 @@ public record GetPosts(
         cancellationToken)
         {
             var queryable = context.Posts.AsQueryable();
-            if (!string.IsNullOrWhiteSpace(request.Name))
+            if (!string.IsNullOrWhiteSpace(request.Title))
             {
-                queryable = queryable.Where(x => x.Name == request.Name);
+                queryable = queryable.Where(x => x.Title == request.Title);
             }
 
             if (!string.IsNullOrWhiteSpace(request.SearchQuery))
             {
-                queryable = queryable.Where(x => x.Name.Contains(request.SearchQuery)
+                queryable = queryable.Where(x => x.Title.Contains(request.SearchQuery)
                                                  || x.Title!.Contains(request.SearchQuery));
             }
             var totalItemsCount = await queryable.CountAsync(cancellationToken);

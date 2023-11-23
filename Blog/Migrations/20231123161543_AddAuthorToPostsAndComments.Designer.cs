@@ -3,6 +3,7 @@ using System;
 using Blog.API.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blog.Migrations
 {
     [DbContext(typeof(PostInfoContext))]
-    partial class PostInfoContextModelSnapshot : ModelSnapshot
+    [Migration("20231123161543_AddAuthorToPostsAndComments")]
+    partial class AddAuthorToPostsAndComments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.25");
@@ -23,11 +25,12 @@ namespace Blog.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("AuthorId")
+                    b.Property<string>("Author")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AuthorName")
+                    b.Property<string>("AuthorId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
@@ -48,8 +51,6 @@ namespace Blog.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
-
                     b.HasIndex("PostId");
 
                     b.ToTable("Comments");
@@ -61,11 +62,12 @@ namespace Blog.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("AuthorId")
+                    b.Property<string>("Author")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AuthorName")
+                    b.Property<string>("AuthorId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
@@ -77,8 +79,6 @@ namespace Blog.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
 
                     b.ToTable("Posts");
                 });
@@ -283,32 +283,13 @@ namespace Blog.Migrations
 
             modelBuilder.Entity("Blog.API.Entities.Comment", b =>
                 {
-                    b.HasOne("Blog.API.Entities.User", "Author")
-                        .WithMany("Comments")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Blog.API.Entities.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Author");
-
                     b.Navigation("Post");
-                });
-
-            modelBuilder.Entity("Blog.API.Entities.Post", b =>
-                {
-                    b.HasOne("Blog.API.Entities.User", "Author")
-                        .WithMany("Posts")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -365,13 +346,6 @@ namespace Blog.Migrations
             modelBuilder.Entity("Blog.API.Entities.Post", b =>
                 {
                     b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("Blog.API.Entities.User", b =>
-                {
-                    b.Navigation("Comments");
-
-                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

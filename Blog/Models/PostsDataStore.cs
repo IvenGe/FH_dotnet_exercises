@@ -1,4 +1,4 @@
-using Blog.API.Models;
+/* using Blog.API.Models;
 
 namespace Blog.API;
 
@@ -72,3 +72,4 @@ public class PostsDataStore
         };
     }
 }
+*/

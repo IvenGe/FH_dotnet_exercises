@@ -9,7 +9,11 @@ public class Comment
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
-    public string FullName { get; set; }
+    public string AuthorId { get; set; } = string.Empty;
+
+    public User Author { get; set; }
+
+    public string? AuthorName { get; set; }
 
     [Required]
     [MaxLength(50)]

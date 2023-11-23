@@ -21,10 +21,20 @@ public class PostInfoContext : IdentityDbContext<User>
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Post>().Navigation(x => x.Comments).AutoInclude();
-        modelBuilder.Entity<Post>();
+        modelBuilder.Entity<Post>()
+            .HasOne(p => p.Author)
+            .WithMany(u => u.Posts)
+            .HasForeignKey(p => p.AuthorId)
+            .OnDelete(DeleteBehavior.Restrict);
+
             
 
-        modelBuilder.Entity<Comment>();
+        modelBuilder.Entity<Comment>()
+            .HasOne(c => c.Author)
+            .WithMany(u => u.Comments)
+            .HasForeignKey(c => c.AuthorId)
+            .OnDelete(DeleteBehavior.Restrict);
+
          
     }
 }
