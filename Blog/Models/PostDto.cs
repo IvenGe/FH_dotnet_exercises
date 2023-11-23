@@ -2,25 +2,29 @@ using Blog.API.Entities;
 
 namespace Blog.API.Models;
 
-public class PostDto
+public class PostDto : IPostDto
 {
-    public PostDto() {}
+
+    public PostDto() { }
     public PostDto(Post post)
     {
         Id = post.Id;
-        AuthorName = post.AuthorName;
+        AuthorName = post.AuthorName; // Assuming Author is a User object with FirstName and LastName
+        DatePublished = post.DatePublished; // Assuming there is a DatePublished property in Post
         Title = post.Title;
         Content = post.Content;
-        Comments = post.Comments
-            .Select(comment => new CommentDto(comment)).ToList();
+        NumberOfComments = post.Comments.Count;
+        Comments = post.Comments.Select(c => new CommentDto(c)).ToList(); // Assuming there is a corresponding constructor in CommentDto
     }
+    
     public int Id { get; set; }
     public string AuthorName { get; set; } = string.Empty;
 
+    public DateTime DatePublished { get; set; }
+
     public string? Title { get; set; }
     public string? Content { get; set; }
-    public int NumberOfComments
-        => Comments.Count;
+    public int NumberOfComments { get; set; }
     public ICollection<CommentDto> Comments { get; set; }
         = new List<CommentDto>();
 }

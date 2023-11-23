@@ -13,15 +13,21 @@ namespace Blog.API.Controllers;
 public class PostsController : ControllerBase
 {
     private readonly IMediator mediator;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public PostsController(IMediator mediator) => this.mediator = mediator;
+    public PostsController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
+    {
+        this.mediator = mediator;
+        _httpContextAccessor = httpContextAccessor;
+    }
+
     [HttpGet]
-    [Authorize(Policy = "MustBeSuperUser")]
+    [AllowAnonymous]
     //Controller to get posts
-    public async Task<GetPosts.Result> GetPosts(string? name, string? searchQuery,
+    public async Task<GetPosts.Result> GetPosts(string? searchQuery,
         int pageNumber = 1, int pageSize = 10)
         {
-            var result = await mediator.Send(new GetPosts(name, searchQuery, pageNumber, pageSize));
+            var result = await mediator.Send(new GetPosts(_httpContextAccessor, null, searchQuery, pageNumber, pageSize));
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(result.PaginationMetadata));
             return result;
         }

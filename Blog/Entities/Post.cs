@@ -18,6 +18,8 @@ public class Post
 
     public string? AuthorName { get; set; }
 
+    public DateTime DatePublished { get; set; } = DateTime.UtcNow;
+
     [Required]
 
     [MaxLength(200)]

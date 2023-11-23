@@ -36,7 +36,6 @@ ICommand<PostDto>
                 AuthorId = userId
             };
 
-            Console.WriteLine(userId);
             if (string.IsNullOrEmpty(userId))
             {
 

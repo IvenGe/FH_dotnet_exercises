@@ -10,7 +10,7 @@ public class CommentDto
     public CommentDto(Comment comment)
     {
         Id = comment.Id;
-        Author = comment.Author.ToString();
+        AuthorName = comment.AuthorName;
         Title = comment.Title;
         Content = comment.Content;
         Timestamp = comment.Timestamp;
@@ -19,7 +19,7 @@ public class CommentDto
     public string Title { get; set; } = string.Empty;
     public string? Content { get; set; }
 
-    public string Author { get; set; } = string.Empty;
+    public string AuthorName { get; set; } = string.Empty;
 
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 }

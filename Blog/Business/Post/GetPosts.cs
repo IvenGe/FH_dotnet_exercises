@@ -7,16 +7,22 @@ using Microsoft.EntityFrameworkCore;
 namespace Blog.API.Business.Post;
 
 public record GetPosts(
+    IHttpContextAccessor httpContextAccessor,
     string? Title = null,
     string? SearchQuery = null,
     int PageNumber = 1,
     int PageSize = 10) : IQuery<GetPosts.Result>
 {
-    public record Result(IEnumerable<PostDto> Posts, PaginationMetadata PaginationMetadata);
+    public record Result(IEnumerable<IPostDto> Posts, PaginationMetadata PaginationMetadata);
     public class Handler : IRequestHandler<GetPosts, Result>
         {
         private readonly PostInfoContext context;
-        public Handler(PostInfoContext context) => this.context = context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public Handler(PostInfoContext context, IHttpContextAccessor httpContextAccessor)
+        {
+            this.context = context;
+            _httpContextAccessor = httpContextAccessor;
+        }
         public async Task<Result> Handle(GetPosts request, CancellationToken
         cancellationToken)
         {
@@ -38,13 +44,36 @@ public record GetPosts(
                 request.PageSize,
                 request.PageNumber);
 
-            return new Result(
-                await queryable
+            var isAuthenticated = _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
+            if (isAuthenticated)
+            {
+                var detailedPosts = await queryable
+                    .OrderByDescending(p => p.Comments.Count)
                     .Skip(request.PageSize * (request.PageNumber - 1))
                     .Take(request.PageSize)
-                    .Select(x => new PostDto(x))
-                    .ToListAsync(cancellationToken),
-                    paginationMetadata);
+                    .Select(p => new PostDto(p))
+                    .ToListAsync(cancellationToken);
+
+                return new Result(detailedPosts.Cast<IPostDto>(), paginationMetadata);
+            }
+            else
+            {
+                var publicPosts = await queryable
+                    .OrderByDescending(p => p.Comments.Count)
+                    .Skip(request.PageSize * (request.PageNumber - 1))
+                    .Take(request.PageSize)
+                    .Select(p => new PublicPostDto
+                    {
+                        Title = p.Title,
+                        DatePublished = p.DatePublished,
+                        NumberOfComments = p.Comments.Count
+                    })
+                    .ToListAsync(cancellationToken);
+
+                return new Result(publicPosts.Cast<IPostDto>(), paginationMetadata);
+                
+            }
+
         }
     }
 }

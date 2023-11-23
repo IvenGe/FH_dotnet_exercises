@@ -27,17 +27,23 @@ ICommand<CommentDto>
             var firstName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value;
             var lastName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Surname)?.Value;
             var userId = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-            var fullName = $"{firstName} {lastName}";
+            var authorName = $"{firstName} {lastName}";
             var post = await context.Posts
                 .SingleRequiredAsync(x => x.Id == request.PostId, cancellationToken);
 
             var comment = new Entities.Comment()
             {
-                Author = fullName.ToString(),
+                AuthorName = authorName.ToString(),
                 Title = request.CommentForCreationDto.Title,
                 Content = request.CommentForCreationDto.Content,
-                PostId = request.PostId
+                PostId = request.PostId,
+                AuthorId = userId
             };
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new InvalidOperationException("AuthorId cannot be null");
+            }
 
             post.Comments.Add(comment);
             await context.SaveChangesAsync(cancellationToken);
