@@ -17,10 +17,12 @@ public class CommentsController : ControllerBase
         => this.mediator = mediator;
 
     [HttpGet]
+    [Authorize]
     public Task<GetCommentsByPostId.Result> GetComments(int postId)
         => mediator.Send(new GetCommentsByPostId(postId));
 
     [HttpGet("{commentId}", Name = "GetComment")]
+    [Authorize]
     public Task<CommentDto> GetComment(
         int postId, int commentId)
         => mediator.Send(new GetComment(postId, commentId));
@@ -52,12 +54,14 @@ public Task<Unit> UpdateCommentTitle(
 
 public record UpdateCommentContentModel([MaxLength(200)] string? Content);
 [HttpPost("{commentId}/UpdateContent")]
+[Authorize]
 public Task<Unit> UpdateCommentContent(
     int postId, int commentId,
     [FromBody] CommentContentForUpdateDto body)
     => mediator.Send(new UpdateCommentContent(postId, commentId, body.Content));
 
 [HttpDelete("{commentId}")]
+[Authorize]
 public Task<Unit> DeleteComment(int postId, int commentId)
 => mediator.Send(new DeleteComment(postId, commentId));
 
