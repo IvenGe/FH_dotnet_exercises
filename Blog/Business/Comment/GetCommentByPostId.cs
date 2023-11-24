@@ -22,8 +22,13 @@ IQuery<GetCommentsByPostId.Result>
                     .Include(p => p.Comments)
                         .ThenInclude(c => c.Author)
                     .SingleRequiredAsync(x => x.Id == request.PostId, cancellationToken);
-                return new Result(post.Comments
-                        .Select(x => new CommentDto(x)));
+
+                    var sortedComments = post.Comments
+                        .OrderBy(c => c.Timestamp)
+                        .Select(c => new CommentDto(c))
+                        .ToList();
+
+                return new Result(sortedComments);
             }
     }
 
