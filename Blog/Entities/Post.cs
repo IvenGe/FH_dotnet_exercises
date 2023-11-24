@@ -9,10 +9,8 @@ public class Post
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
-    
-    public string AuthorId { get; set; }
-
     [ForeignKey("AuthorId")]
+    public string AuthorId { get; set; }
 
     public User Author { get; set; }
 

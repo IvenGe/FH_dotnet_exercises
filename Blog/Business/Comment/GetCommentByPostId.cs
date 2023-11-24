@@ -3,6 +3,7 @@ using Blog.API.Models;
 using Fusonic.Extensions.EntityFrameworkCore;
 using Fusonic.Extensions.MediatR;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.API.Business.Comment;
 
@@ -18,6 +19,8 @@ IQuery<GetCommentsByPostId.Result>
         public async Task<Result> Handle(GetCommentsByPostId request, CancellationToken cancellationToken)
             {
                 var post = await context.Posts
+                    .Include(p => p.Comments)
+                        .ThenInclude(c => c.Author)
                     .SingleRequiredAsync(x => x.Id == request.PostId, cancellationToken);
                 return new Result(post.Comments
                         .Select(x => new CommentDto(x)));

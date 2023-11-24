@@ -16,7 +16,14 @@ public record GetUserByUserName(string UserName) : IQuery<UserDto>
         public Handler(PostInfoContext context) => this.context = context;
         public async Task<UserDto> Handle(GetUserByUserName request, CancellationToken
             cancellationToken)
-            => new UserDto(await context.Users.Include(x => x.Posts)
-                .SingleRequiredAsync(x => x.UserName == request.UserName, cancellationToken));
+            {
+                var user = await context.Users
+                    .Include(u => u.Posts)
+                        .ThenInclude(p => p.Comments)
+                            .ThenInclude(c => c.Author)
+                    .Include(u => u.Comments)
+                    .SingleRequiredAsync(x => x.UserName == request.UserName, cancellationToken);
+                return new UserDto(user);
+            }
     }
 }

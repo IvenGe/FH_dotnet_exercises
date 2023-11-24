@@ -24,9 +24,15 @@ ICommand<CommentDto>
         public async Task<CommentDto> Handle(AddComment request, CancellationToken cancellationToken)
         {
             var userClaims = _httpContextAccessor.HttpContext.User.Claims;
+            var userName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
             var firstName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value;
             var lastName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Surname)?.Value;
             var userId = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new InvalidOperationException("AuthorId cannot be null");
+            }
+            var author = await context.Users.FindAsync(userId) ?? throw new InvalidOperationException("Author not found");
             var authorName = $"{firstName} {lastName}";
             var post = await context.Posts
                 .SingleRequiredAsync(x => x.Id == request.PostId, cancellationToken);

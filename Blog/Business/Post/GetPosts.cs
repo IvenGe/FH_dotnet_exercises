@@ -48,6 +48,9 @@ public record GetPosts(
             if (isAuthenticated)
             {
                 var detailedPosts = await queryable
+                    .Include(p => p.Author)
+                    .Include(p => p.Comments)
+                        .ThenInclude(c => c.Author)
                     .OrderByDescending(p => p.Comments.Count)
                     .Skip(request.PageSize * (request.PageNumber - 1))
                     .Take(request.PageSize)

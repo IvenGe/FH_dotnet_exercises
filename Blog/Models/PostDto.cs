@@ -9,7 +9,8 @@ public class PostDto : IPostDto
     public PostDto(Post post)
     {
         Id = post.Id;
-        AuthorName = post.AuthorName; // Assuming Author is a User object with FirstName and LastName
+        AuthorName = post.Author.FirstName + " " + post.Author.LastName;  // Assuming Author is a User object with FirstName and LastName
+        AuthorUserName = post.Author.UserName;
         DatePublished = post.DatePublished; // Assuming there is a DatePublished property in Post
         Title = post.Title;
         Content = post.Content;
@@ -18,8 +19,9 @@ public class PostDto : IPostDto
     }
     
     public int Id { get; set; }
+    public string AuthorUserName { get; set; } = string.Empty;
     public string AuthorName { get; set; } = string.Empty;
-
+    
     public DateTime DatePublished { get; set; }
 
     public string? Title { get; set; }

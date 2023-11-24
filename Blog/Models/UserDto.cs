@@ -11,8 +11,8 @@ namespace Blog.API.Models
             FirstName = user.FirstName;
             LastName = user.LastName;
             Email = user.Email;
-            Posts = user.Posts.Select(post => new PostDto(post)).ToList();
-            Comments = user.Comments.Select(comment => new CommentDto(comment)).ToList();
+            Posts = user.Posts != null ? user.Posts.Select(post => new PostDto(post)).ToList() : new List<PostDto>();
+            Comments = user.Comments != null ? user.Comments.Select(comment => new CommentDto(comment)).ToList() : new List<CommentDto>();
         }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
