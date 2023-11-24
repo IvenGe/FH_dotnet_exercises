@@ -23,33 +23,26 @@ ICommand<CommentDto>
 
         public async Task<CommentDto> Handle(AddComment request, CancellationToken cancellationToken)
         {
-            var userClaims = _httpContextAccessor.HttpContext.User.Claims;
-            var userName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
-            var firstName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value;
-            var lastName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Surname)?.Value;
-            var userId = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             if (string.IsNullOrEmpty(userId))
             {
                 throw new InvalidOperationException("AuthorId cannot be null");
             }
+
             var author = await context.Users.FindAsync(userId) ?? throw new InvalidOperationException("Author not found");
-            var authorName = $"{firstName} {lastName}";
             var post = await context.Posts
-                .SingleRequiredAsync(x => x.Id == request.PostId, cancellationToken);
+                .SingleRequiredAsync(x => x.Id == request.PostId, cancellationToken)
+                ?? throw new InvalidOperationException("Post not found");
 
             var comment = new Entities.Comment()
             {
-                AuthorName = authorName.ToString(),
                 Title = request.CommentForCreationDto.Title,
                 Content = request.CommentForCreationDto.Content,
                 PostId = request.PostId,
-                AuthorId = userId
+                AuthorId = userId,
+                Author = author
             };
-
-            if (string.IsNullOrEmpty(userId))
-            {
-                throw new InvalidOperationException("AuthorId cannot be null");
-            }
 
             post.Comments.Add(comment);
             await context.SaveChangesAsync(cancellationToken);

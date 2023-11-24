@@ -13,8 +13,6 @@ public class Comment
 
     public User Author { get; set; }
 
-    public string? AuthorName { get; set; }
-
     [Required]
     [MaxLength(50)]
     public string Title { get; set; }

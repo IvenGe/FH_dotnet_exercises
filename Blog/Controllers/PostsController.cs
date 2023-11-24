@@ -49,4 +49,20 @@ public class PostsController : ControllerBase
 
         return CreatedAtAction(nameof(GetPostById), new { id = result.Id }, result);
     }
+
+    [HttpPost("{postId}/UpdateTitle")]
+    [Authorize]
+    //Controller for updating post title
+    public Task<Unit> UpdatePostTitle(
+        int postId,
+        [FromBody] PostTitleForUpdateDto body)
+        => mediator.Send(new UpdatePostTitle(postId, body.Title));
+
+    [HttpPost("{postId}/UpdateContent")]
+    [Authorize]
+    //Controller for updating post content
+    public Task<Unit> UpdatePostContent(
+        int postId,
+        [FromBody] PostContentForUpdateDto body)
+        => mediator.Send(new UpdatePostContent(postId, body.Content));
 }

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Blog.API.DbContexts;
 using Fusonic.Extensions.EntityFrameworkCore;
 using Fusonic.Extensions.MediatR;
@@ -21,9 +22,12 @@ public record UpdatePostContent(int PostId, string? Content) : ICommand
         {
             var post = await context.Posts
                 .SingleRequiredAsync(x => x.Id == request.PostId, cancellationToken);
-            if (post == null || post.AuthorId != httpContextAccessor.HttpContext.User.Identity.Name)
+            
+            var currentUserId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (post.AuthorId != currentUserId)
             {
-                throw new UnauthorizedAccessException();
+                throw new UnauthorizedAccessException("You are not the author of this post");
             }
             post.Content = request.Content;
             await context.SaveChangesAsync(cancellationToken);

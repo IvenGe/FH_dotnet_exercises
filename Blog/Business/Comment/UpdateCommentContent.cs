@@ -6,9 +6,9 @@ using MediatR;
 
 namespace Blog.API.Business.Comment;
 
-public record UpdateCommentTitle(int PostId, int CommentId, string Title) : ICommand
+public record UpdateCommentContent(int PostId, int CommentId, string? Content) : ICommand
 {
-    public class Handler : IRequestHandler<UpdateCommentTitle>
+    public class Handler : IRequestHandler<UpdateCommentContent>
     {
         private readonly PostInfoContext context;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -18,8 +18,7 @@ public record UpdateCommentTitle(int PostId, int CommentId, string Title) : ICom
             this.context = context;
             _httpContextAccessor = httpContextAccessor;
         }
-        
-        public async Task<Unit> Handle(UpdateCommentTitle request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateCommentContent request, CancellationToken cancellationToken)
         {
             var comment = await context.Comments
                 .SingleRequiredAsync(x => x.PostId == request.PostId
@@ -31,8 +30,8 @@ public record UpdateCommentTitle(int PostId, int CommentId, string Title) : ICom
             {
                 throw new UnauthorizedAccessException("You are not the author of this comment");
             }
-
-            comment.Title = request.Title;
+            
+            comment.Content = request.Content;
             await context.SaveChangesAsync(cancellationToken);
             return default;
         } 

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Blog.API.DbContexts;
 using Fusonic.Extensions.EntityFrameworkCore;
 using Fusonic.Extensions.MediatR;
@@ -22,10 +23,14 @@ public record UpdatePostTitle(int PostId, string Title) : ICommand
             var post = await context.Posts
                 .SingleRequiredAsync(x => x.Id == request.PostId, cancellationToken);
 
-            if (post == null || post.AuthorId != httpContextAccessor.HttpContext.User.Identity.Name)
+            var currentUserId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (post.AuthorId != currentUserId)
             {
-                throw new UnauthorizedAccessException();
+                throw new UnauthorizedAccessException("You are not the author of this post");
+                throw new UnauthorizedAccessException($"{currentUserId} + {post.AuthorId}");
             }
+
             post.Title = request.Title;
             await context.SaveChangesAsync(cancellationToken);
             return default;

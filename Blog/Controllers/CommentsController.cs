@@ -44,17 +44,18 @@ public async Task<ActionResult<CommentDto>> CreateComment(
 
 public record UpdateCommentTitleModel([MaxLength(50)] string Title);
 [HttpPost("{commentId}/UpdateTitle")]
+[Authorize]
 public Task<Unit> UpdateCommentTitle(
     int postId, int commentId,
-    [FromBody] UpdateCommentTitleModel body)
+    [FromBody] CommentTitleForUpdateDto body)
     => mediator.Send(new UpdateCommentTitle(postId, commentId, body.Title));
 
 public record UpdateCommentContentModel([MaxLength(200)] string? Content);
-[HttpPost("{commentId}/UpdateText")]
+[HttpPost("{commentId}/UpdateContent")]
 public Task<Unit> UpdateCommentContent(
     int postId, int commentId,
-    [FromBody] UpdateCommentContentModel body)
-    => mediator.Send(new UpdateCommentText(postId, commentId, body.Content));
+    [FromBody] CommentContentForUpdateDto body)
+    => mediator.Send(new UpdateCommentContent(postId, commentId, body.Content));
 
 [HttpDelete("{commentId}")]
 public Task<Unit> DeleteComment(int postId, int commentId)
