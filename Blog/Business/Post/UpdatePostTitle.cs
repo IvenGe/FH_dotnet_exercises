@@ -23,12 +23,16 @@ public record UpdatePostTitle(int PostId, string Title) : ICommand
             var post = await context.Posts
                 .SingleRequiredAsync(x => x.Id == request.PostId, cancellationToken);
 
-            var currentUserId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var currentUserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (currentUserId == null)
+            {
+                throw new UnauthorizedAccessException("User is not authenticated");
+            }
 
             if (post.AuthorId != currentUserId)
             {
                 throw new UnauthorizedAccessException("You are not the author of this post");
-                throw new UnauthorizedAccessException($"{currentUserId} + {post.AuthorId}");
             }
 
             post.Title = request.Title;

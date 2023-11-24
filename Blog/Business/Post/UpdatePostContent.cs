@@ -23,7 +23,7 @@ public record UpdatePostContent(int PostId, string? Content) : ICommand
             var post = await context.Posts
                 .SingleRequiredAsync(x => x.Id == request.PostId, cancellationToken);
             
-            var currentUserId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var currentUserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (post.AuthorId != currentUserId)
             {
